@@ -1,0 +1,95 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <Style src="project://database/Assets/UI%20Toolkit/MainView.uss?fileID=7433441132597879392&amp;guid=38697c864a9fc724a892537ff8c6bcc5&amp;type=3#MainView" />
+    <ui:VisualElement name="overlay-view" class="irtv2-overlay-view" style="flex-grow: 1;" />
+    <ui:VisualElement name="main-view" class="irtv2-main-view">
+        <ui:VisualElement name="top-bar" class="irtv2-top-bar">
+            <ui:VisualElement name="top-bar-left-group" class="irtv2-top-bar-left-group">
+                <ui:VisualElement name="logo" class="irtv2-logo" />
+                <ui:DropdownField choices="None,General Settings,Overlay Settings,Overlay Layers,Header Data,Session Info,Telemetry Data,Event Tracks" name="main-dropdown" class="irtv2-main-dropdown" />
+            </ui:VisualElement>
+            <ui:Button text="X" parse-escape-sequences="true" display-tooltip-when-elided="true" name="close-button" class="irtv2-close-button" />
+        </ui:VisualElement>
+        <ui:VisualElement name="overlay-settings-panel" data-source="project://database/Assets/OverlaySettings.asset?fileID=11400000&amp;guid=ed6321c3568e6b949806564194835af2&amp;type=2#OverlaySettings" class="irtv2-panel">
+            <ui:ScrollView>
+                <ui:GroupBox text="Overlay Settings">
+                    <ui:VisualElement class="irtv2-horizontal-layout">
+                        <ui:DropdownField data-source-path="data.FilePathList" style="flex-grow: 1;">
+                            <Bindings>
+                                <ui:DataBinding property="choices" binding-mode="ToTarget" />
+                            </Bindings>
+                        </ui:DropdownField>
+                        <ui:Button text="Refresh" style="width: 85px;" />
+                        <ui:Button text="Rename" style="width: 85px;" />
+                        <ui:Button text="Clone" style="width: 85px;" />
+                    </ui:VisualElement>
+                </ui:GroupBox>
+                <ui:GroupBox text="Position and Size">
+                    <ui:Toggle label="Automatic" value="true" text="Enabling this will make iRacing-TV automatically position itself over the simulator window" data-source-path="data.PositionAndSizeAutomatic">
+                        <Bindings>
+                            <ui:DataBinding property="value" binding-mode="TwoWay" />
+                        </Bindings>
+                    </ui:Toggle>
+                    <ui:RectIntField data-source-path="data.PositionAndSizeRect">
+                        <Bindings>
+                            <ui:DataBinding property="value" binding-mode="TwoWay" />
+                        </Bindings>
+                    </ui:RectIntField>
+                </ui:GroupBox>
+            </ui:ScrollView>
+        </ui:VisualElement>
+        <ui:VisualElement name="header-data-panel" class="irtv2-panel">
+            <ui:MultiColumnListView name="header-data-list-view" fixed-item-height="32" show-alternating-row-backgrounds="ContentOnly" allow-add="false" allow-remove="false" show-bound-collection-size="false">
+                <ui:Columns>
+                    <ui:Column name="key" title="Key" width="256" sortable="false" optional="false" cell-template="project://database/Assets/UI%20Toolkit/MultiColumnListCellView.uxml?fileID=9197481963319205126&amp;guid=a100f2bcdbbc2db4882846dcb466ce36&amp;type=3#MultiColumnListCellView" />
+                    <ui:Column name="value" title="Value" width="100%" sortable="false" optional="false" cell-template="project://database/Assets/UI%20Toolkit/MultiColumnListCellView.uxml?fileID=9197481963319205126&amp;guid=a100f2bcdbbc2db4882846dcb466ce36&amp;type=3#MultiColumnListCellView" />
+                </ui:Columns>
+            </ui:MultiColumnListView>
+            <ui:VisualElement name="simulator-not-running-1" class="irtv2-simulator-not-running">
+                <ui:Label tabindex="-1" text="The iRacing simulator is not running" parse-escape-sequences="true" display-tooltip-when-elided="true" />
+            </ui:VisualElement>
+        </ui:VisualElement>
+        <ui:VisualElement name="session-info-panel" class="irtv2-panel">
+            <ui:MultiColumnListView name="session-info-list-view" fixed-item-height="32" show-alternating-row-backgrounds="ContentOnly" allow-add="false" allow-remove="false" show-bound-collection-size="false">
+                <ui:Columns>
+                    <ui:Column name="key" title="Key" width="480" sortable="false" optional="false" />
+                    <ui:Column name="value" title="Value" width="100%" sortable="false" optional="false" />
+                </ui:Columns>
+            </ui:MultiColumnListView>
+            <ui:VisualElement name="simulator-not-running-2" class="irtv2-simulator-not-running">
+                <ui:Label tabindex="-1" text="The iRacing simulator is not running" parse-escape-sequences="true" display-tooltip-when-elided="true" />
+            </ui:VisualElement>
+        </ui:VisualElement>
+        <ui:VisualElement name="telemetry-data-panel" class="irtv2-panel">
+            <ui:MultiColumnListView name="telemetry-data-list-view" fixed-item-height="32" show-alternating-row-backgrounds="ContentOnly" allow-add="false" allow-remove="false" show-bound-collection-size="false">
+                <ui:Columns>
+                    <ui:Column name="key" title="Key" width="280" sortable="false" optional="false" />
+                    <ui:Column name="value" title="Value" width="144" sortable="false" optional="false" />
+                    <ui:Column name="unit" title="Unit" width="160" sortable="false" optional="false" />
+                    <ui:Column name="description" title="Description" width="100%" sortable="false" optional="false" />
+                </ui:Columns>
+            </ui:MultiColumnListView>
+            <ui:VisualElement name="simulator-not-running-3" class="irtv2-simulator-not-running">
+                <ui:Label tabindex="-1" text="The iRacing simulator is not running" parse-escape-sequences="true" display-tooltip-when-elided="true" />
+            </ui:VisualElement>
+        </ui:VisualElement>
+        <ui:VisualElement name="event-tracks-panel" class="irtv2-panel">
+            <ui:VisualElement class="irtv2-horizontal-layout">
+                <ui:MultiColumnListView name="event-tracks-list-view" fixed-item-height="32" show-alternating-row-backgrounds="ContentOnly" allow-add="false" allow-remove="false" show-bound-collection-size="false" style="flex-grow: 1;">
+                    <ui:Columns>
+                        <ui:Column name="trackname" title="Track Name" width="100%" sortable="false" optional="false" />
+                    </ui:Columns>
+                </ui:MultiColumnListView>
+                <ui:MultiColumnListView name="events-list-view" fixed-item-height="32" show-alternating-row-backgrounds="ContentOnly" style="flex-grow: 1;">
+                    <ui:Columns>
+                        <ui:Column name="sessionnumber" title="SN" width="48" />
+                        <ui:Column name="sessiontime" title="Session Time" width="128" />
+                        <ui:Column name="value" title="Value" width="100%" />
+                    </ui:Columns>
+                </ui:MultiColumnListView>
+            </ui:VisualElement>
+            <ui:VisualElement name="simulator-not-running-4" class="irtv2-simulator-not-running">
+                <ui:Label tabindex="-1" text="The iRacing simulator is not running" parse-escape-sequences="true" display-tooltip-when-elided="true" />
+            </ui:VisualElement>
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>

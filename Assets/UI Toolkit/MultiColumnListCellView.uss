@@ -1,0 +1,9 @@
+.irtv2-table-cell {
+    color: rgb(255, 255, 255);
+    height: 32px;
+    -unity-text-align: middle-left;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    padding-right: 8px;
+    padding-left: 8px;
+}

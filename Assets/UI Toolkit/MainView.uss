@@ -1,0 +1,259 @@
+.irtv2-main-view {
+    padding-top: 16px;
+    padding-right: 16px;
+    padding-bottom: 16px;
+    padding-left: 16px;
+    opacity: 0.9;
+    flex-grow: 1;
+    background-color: rgba(0, 0, 0, 0.75);
+}
+
+.irtv2-top-bar {
+    flex-direction: row;
+    justify-content: space-between;
+    margin-bottom: 16px;
+    flex-shrink: 0;
+    background-color: rgb(0, 0, 0);
+    height: 32px;
+    align-items: center;
+    border-top-left-radius: 6px;
+    border-top-right-radius: 6px;
+    border-bottom-right-radius: 6px;
+    border-bottom-left-radius: 6px;
+}
+
+.irtv2-top-bar-left-group {
+    flex-direction: row;
+    align-items: center;
+}
+
+.irtv2-logo {
+    background-image: url("project://database/Assets/iracing-tv-logo-white-no-slogan.png?fileID=2800000&guid=fe28ae7949405624fb1914181bff448a&type=3#iracing-tv-logo-white-no-slogan");
+    -unity-background-scale-mode: scale-to-fit;
+    height: 20px;
+    width: 96px;
+    margin-bottom: 4px;
+}
+
+.irtv2-main-dropdown {
+    width: 224px;
+    height: 24px;
+}
+
+.irtv2-close-button {
+    width: 24px;
+    font-size: 20px;
+    height: 24px;
+    -unity-font-style: bold;
+}
+
+.irtv2-panel {
+    flex-grow: 1;
+}
+
+.irtv2-simulator-not-running {
+    font-size: 48px;
+    flex-grow: 1;
+    align-self: center;
+    color: rgb(255, 255, 255);
+}
+
+.irtv2-overlay-view {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+}
+
+.irtv2-horizontal-layout {
+    flex-direction: row;
+}
+
+.unity-base-field__label {
+    color: rgb(255, 255, 255);
+    font-size: 20px;
+}
+
+.unity-base-popup-field__text {
+    margin-right: 16px;
+}
+
+.unity-base-popup-field__input {
+    padding-bottom: 0;
+    padding-top: 0;
+}
+
+.unity-collection-view {
+    min-height: 32px;
+}
+
+.unity-multi-column-view__header-container {
+    background-color: rgba(0, 0, 0, 0);
+    border-bottom-width: 0;
+}
+
+.unity-multi-column-header__column {
+    background-color: rgb(32, 32, 32);
+    color: rgb(255, 255, 255);
+    border-top-left-radius: 6px;
+    border-top-right-radius: 6px;
+    border-bottom-right-radius: 6px;
+    border-bottom-left-radius: 6px;
+    border-left-color: rgb(0, 0, 0);
+    border-right-color: rgb(0, 0, 0);
+    border-top-color: rgb(0, 0, 0);
+    border-bottom-color: rgb(0, 0, 0);
+    border-top-width: 1px;
+    border-right-width: 1px;
+    border-bottom-width: 1px;
+    border-left-width: 1px;
+}
+
+.unity-multi-column-header {
+    min-height: 32px;
+}
+
+.unity-collection-view__item {
+    background-color: rgb(0, 0, 64);
+}
+
+.unity-collection-view__item:hover:enabled {
+    background-color: rgb(0, 0, 64);
+}
+
+.unity-collection-view__item--alternative-background {
+    background-color: rgb(0, 0, 80);
+}
+
+.unity-collection-view__item--alternative-background:hover:enabled {
+    background-color: rgb(0, 0, 80);
+}
+
+.unity-collection-view__item--selected {
+    background-color: rgb(64, 64, 64);
+}
+
+.unity-collection-view__item--selected:hover:enabled {
+    background-color: rgb(64, 64, 64);
+}
+
+.unity-base-slider__tracker {
+    background-color: rgb(32, 32, 32);
+    border-width: 0;
+}
+
+.unity-scroller--vertical .unity-base-slider__dragger {
+    min-height: 32px;
+}
+
+.unity-group-box__label {
+    color: rgb(255, 255, 255);
+    font-size: 20px;
+    -unity-font-style: bold;
+    background-color: rgb(32, 32, 32);
+    padding-left: 16px;
+    border-top-left-radius: 6px;
+    border-top-right-radius: 6px;
+    border-bottom-right-radius: 6px;
+    border-bottom-left-radius: 6px;
+    border-top-width: 1px;
+    border-right-width: 1px;
+    border-bottom-width: 1px;
+    border-left-width: 1px;
+    border-left-color: rgb(0, 0, 0);
+    border-right-color: rgb(0, 0, 0);
+    border-top-color: rgb(0, 0, 0);
+    border-bottom-color: rgb(0, 0, 0);
+}
+
+.unity-toggle__text {
+    color: rgb(255, 255, 255);
+    font-size: 20px;
+    padding-left: 16px;
+}
+
+.unity-button {
+    border-top-left-radius: 6px;
+    border-top-right-radius: 6px;
+    border-bottom-right-radius: 6px;
+    border-bottom-left-radius: 6px;
+    border-top-width: 1px;
+    border-right-width: 1px;
+    border-bottom-width: 1px;
+    border-left-width: 1px;
+    border-left-color: rgb(0, 0, 0);
+    border-right-color: rgb(0, 0, 0);
+    border-top-color: rgb(0, 0, 0);
+    border-bottom-color: rgb(0, 0, 0);
+}
+
+.unity-popup-field__input {
+    border-top-left-radius: 6px;
+    border-top-right-radius: 6px;
+    border-bottom-right-radius: 6px;
+    border-bottom-left-radius: 6px;
+    border-top-width: 1px;
+    border-right-width: 1px;
+    border-bottom-width: 1px;
+    border-left-width: 1px;
+    border-left-color: rgb(0, 0, 0);
+    border-right-color: rgb(0, 0, 0);
+    border-top-color: rgb(0, 0, 0);
+    border-bottom-color: rgb(0, 0, 0);
+}
+
+.unity-base-text-field__input {
+    border-top-left-radius: 6px;
+    border-top-right-radius: 6px;
+    border-bottom-right-radius: 6px;
+    border-bottom-left-radius: 6px;
+    border-top-width: 1px;
+    border-right-width: 1px;
+    border-bottom-width: 1px;
+    border-left-width: 1px;
+    border-left-color: rgb(0, 0, 0);
+    border-right-color: rgb(0, 0, 0);
+    border-top-color: rgb(0, 0, 0);
+    border-bottom-color: rgb(0, 0, 0);
+}
+
+.unity-toggle__checkmark {
+    border-top-left-radius: 6px;
+    border-top-right-radius: 6px;
+    border-bottom-right-radius: 6px;
+    border-bottom-left-radius: 6px;
+    border-top-width: 1px;
+    border-right-width: 1px;
+    border-bottom-width: 1px;
+    border-left-width: 1px;
+    border-left-color: rgb(0, 0, 0);
+    border-right-color: rgb(0, 0, 0);
+    border-top-color: rgb(0, 0, 0);
+    border-bottom-color: rgb(0, 0, 0);
+}
+
+.unity-scroller__high-button {
+    border-bottom-right-radius: 6px;
+    border-bottom-left-radius: 6px;
+}
+
+.unity-scroller__low-button {
+    border-top-left-radius: 6px;
+    border-top-right-radius: 6px;
+}
+
+.unity-base-slider__dragger {
+    border-top-left-radius: 6px;
+    border-top-right-radius: 6px;
+    border-bottom-right-radius: 6px;
+    border-bottom-left-radius: 6px;
+    border-top-width: 2px;
+    border-right-width: 2px;
+    border-bottom-width: 2px;
+    border-left-width: 2px;
+    border-left-color: rgb(0, 0, 0);
+    border-right-color: rgb(0, 0, 0);
+    border-top-color: rgb(0, 0, 0);
+    border-bottom-color: rgb(0, 0, 0);
+}

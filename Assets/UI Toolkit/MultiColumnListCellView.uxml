@@ -1,0 +1,6 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="False">
+    <Style src="project://database/Assets/UI%20Toolkit/MultiColumnListCellView.uss?fileID=7433441132597879392&amp;guid=a7295371d275bb44e998a56083da363c&amp;type=3#MultiColumnListCellView" />
+    <ui:VisualElement class="irtv2-table-cell">
+        <ui:Label text="Label" display-tooltip-when-elided="true" name="label" />
+    </ui:VisualElement>
+</ui:UXML>
