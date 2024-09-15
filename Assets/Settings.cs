@@ -11,7 +11,7 @@ public class Settings : MonoBehaviour
 {
 	public static string settingsFilePathsFilePath = Path.Combine( Program.documentsFolder, "SelectedSettings.xml" );
 
-	private SettingsFilePaths settingsFilePaths;
+	public SettingsFilePaths settingsFilePaths;
 
 	public static string generalSettingsFolder = Path.Combine( Program.documentsFolder, "General Settings" );
 	public static string overlaySettingsFolder = Path.Combine( Program.documentsFolder, "Overlay Settings" );
@@ -37,6 +37,8 @@ public class Settings : MonoBehaviour
 		var uiDocument = GetComponent<UIDocument>();
 
 		overlaySettings = (OverlaySettings) uiDocument.rootVisualElement.Q<VisualElement>( "overlay-settings-panel" ).dataSource;
+
+		overlaySettings.SetSettings( this );
 	}
 
 	private void Update()
@@ -78,7 +80,7 @@ public class Settings : MonoBehaviour
 		}
 	}
 
-	private void SaveFilePaths()
+	public void SaveFilePaths()
 	{
 		Debug.Log( "Settings - SaveFilePaths" );
 

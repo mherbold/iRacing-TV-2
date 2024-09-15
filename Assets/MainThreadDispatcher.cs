@@ -31,23 +31,29 @@ public class MainThreadDispatcher : MonoBehaviour
 
 	public void Update()
 	{
-		lock ( _actionQueue )
+		if ( _actionQueue != null )
 		{
-			while ( _actionQueue.Count > 0 )
+			lock ( _actionQueue )
 			{
-				_actionQueue.Dequeue().Invoke();
+				while ( _actionQueue.Count > 0 )
+				{
+					_actionQueue.Dequeue().Invoke();
+				}
 			}
 		}
 	}
 
 	public void BeginInvoke( IEnumerator action )
 	{
-		lock ( _actionQueue )
+		if ( _actionQueue != null )
 		{
-			_actionQueue.Enqueue( () =>
+			lock ( _actionQueue )
 			{
-				StartCoroutine( action );
-			} );
+				_actionQueue.Enqueue( () =>
+				{
+					StartCoroutine( action );
+				} );
+			}
 		}
 	}
 

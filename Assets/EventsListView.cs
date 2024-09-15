@@ -13,14 +13,12 @@ public class EventsListView : MonoBehaviour
 	private MultiColumnListView multiColumnListView;
 
 	private UIDocument uiDocument;
-	private Simulator simulator;
 
 	private void OnEnable()
 	{
 		Debug.Log( "EventsListView - OnEnable" );
 
 		uiDocument = GetComponent<UIDocument>();
-		simulator = GetComponent<Simulator>();
 
 		multiColumnListView = uiDocument.rootVisualElement.Q<MultiColumnListView>( "events-list-view" );
 

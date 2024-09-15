@@ -44,18 +44,21 @@ public class Simulator : MonoBehaviour
 		telemetryDataListView = GetComponent<TelemetryDataListView>();
 		eventTracksListView = GetComponent<EventTracksListView>();
 
-		irsdk.OnException += OnException;
-		irsdk.OnConnected += OnConnected;
-		irsdk.OnDisconnected += OnDisconnected;
-		irsdk.OnSessionInfo += OnSessionInfo;
-		irsdk.OnTelemetryData += OnTelemetryData;
-		irsdk.OnEventSystemDataReset += OnEventSystemDataReset;
-		irsdk.OnEventSystemDataLoaded += OnEventSystemDataLoaded;
-		irsdk.OnStopped += OnStopped;
+		if ( irsdk != null )
+		{
+			irsdk.OnException += OnException;
+			irsdk.OnConnected += OnConnected;
+			irsdk.OnDisconnected += OnDisconnected;
+			irsdk.OnSessionInfo += OnSessionInfo;
+			irsdk.OnTelemetryData += OnTelemetryData;
+			irsdk.OnEventSystemDataReset += OnEventSystemDataReset;
+			irsdk.OnEventSystemDataLoaded += OnEventSystemDataLoaded;
+			irsdk.OnStopped += OnStopped;
 
-		irsdk.Start();
+			irsdk.Start();
 
-		irsdk.EnableEventSystem( eventTracksFolder );
+			irsdk.EnableEventSystem( eventTracksFolder );
+		}
 	}
 
 	private void OnException( Exception exception )

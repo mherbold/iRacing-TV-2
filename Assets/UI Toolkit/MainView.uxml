@@ -13,9 +13,10 @@
             <ui:ScrollView>
                 <ui:GroupBox text="Overlay Settings">
                     <ui:VisualElement class="irtv2-horizontal-layout">
-                        <ui:DropdownField data-source-path="data.FilePathList" style="flex-grow: 1;">
+                        <ui:DropdownField data-source-path="data" style="flex-grow: 1;">
                             <Bindings>
-                                <ui:DataBinding property="choices" binding-mode="ToTarget" />
+                                <ui:DataBinding property="choices" binding-mode="ToTarget" data-source-path="FilePathList" />
+                                <ui:DataBinding property="index" data-source-path="FilePathIndex" binding-mode="TwoWay" />
                             </Bindings>
                         </ui:DropdownField>
                         <ui:Button text="Refresh" style="width: 85px;" />

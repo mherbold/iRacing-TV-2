@@ -24,6 +24,26 @@ public class OverlaySettingsData
 		this.overlaySettings = overlaySettings;
 	}
 
+	private int _filePathIndex = 0;
+
+	[CreateProperty]
+	public int FilePathIndex
+	{
+		get => _filePathIndex;
+
+		set
+		{
+			if ( _filePathIndex == value ) return;
+
+			_filePathIndex = value;
+
+			Debug.Log( $"FilePathIndex -> {value}" );
+
+			overlaySettings?.Notify();
+			overlaySettings?.Load( FilePathList[ FilePathIndex ] );
+		}
+	}
+
 	private List<string> _filePathList = new();
 
 	[CreateProperty]
@@ -52,10 +72,10 @@ public class OverlaySettingsData
 
 			_positionAndSizeAutomatic = value;
 
+			Debug.Log( $"PositionAndSizeAutomatic -> {value}" );
+
 			overlaySettings?.MarkAsDirty();
 			overlaySettings?.Notify();
-
-			Debug.Log( $"PositionAndSizeAutomatic -> {value}" );
 		}
 	}
 
@@ -72,10 +92,10 @@ public class OverlaySettingsData
 
 			_positionAndSizeRect = value;
 
+			Debug.Log( $"PositionAndSizeRect -> {value}" );
+
 			overlaySettings?.MarkAsDirty();
 			overlaySettings?.Notify();
-
-			Debug.Log( $"PositionAndSizeRect -> {value}" );
 		}
 	}
 }

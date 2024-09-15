@@ -18,6 +18,8 @@ public class OverlaySettings : ScriptableObject, IDataSourceViewHashProvider, IN
 
 	public event EventHandler<BindablePropertyChangedEventArgs> propertyChanged;
 
+	private Settings settings;
+
 	public OverlaySettings()
 	{
 		data = new OverlaySettingsData( this );
@@ -25,24 +27,44 @@ public class OverlaySettings : ScriptableObject, IDataSourceViewHashProvider, IN
 		RefreshFilePathList();
 	}
 
+	public void SetSettings(Settings settings)
+	{
+		this.settings = settings;
+	}
+
 	public void RefreshFilePathList()
 	{
 		Directory.CreateDirectory( Settings.overlaySettingsFolder );
 
-		var filePathList = Directory.GetFiles( Settings.overlaySettingsFolder, "*.xml" );
+		var filePathList = new List<string>( Directory.GetFiles( Settings.overlaySettingsFolder, "*.xml" ) );
 
-		data.UpdateFilePathList( new List<string>( filePathList ) );
+		data.UpdateFilePathList( filePathList );
 	}
 
 	public void Load( string filePath )
 	{
 		Debug.Log( $"OverlaySettings - Load: {filePath}" );
 
+		if ( filePath != settings.settingsFilePaths.overlaySettingsFilePath )
+		{
+			settings.settingsFilePaths.overlaySettingsFilePath = filePath;
+
+			settings.SaveFilePaths();
+		}
+
 		try
 		{
 			data = (OverlaySettingsData) Serializer.Load( filePath, typeof( OverlaySettingsData ) );
 
 			data.SetOverlaySettings( this );
+		}
+		catch ( FileNotFoundException )
+		{
+			var fileStream = File.Create( filePath );
+
+			fileStream.Close();
+
+			RefreshFilePathList();
 		}
 		catch ( Exception exception )
 		{
@@ -53,6 +75,8 @@ public class OverlaySettings : ScriptableObject, IDataSourceViewHashProvider, IN
 			IsDirty = false;
 
 			Touch();
+
+			data.FilePathIndex = data.FilePathList.IndexOf( settings.settingsFilePaths.overlaySettingsFilePath );
 		}
 	}
 

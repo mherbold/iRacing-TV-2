@@ -1,0 +1,27 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2013/05/nuspec.xsd">
+  <metadata>
+    <id>IRSDKSharper</id>
+    <version>1.1.1</version>
+    <title>IRSDKSharper</title>
+    <authors>Marvin Herbold</authors>
+    <license type="file">LICENSE</license>
+    <licenseUrl>https://aka.ms/deprecateLicenseUrl</licenseUrl>
+    <readme>README.md</readme>
+    <projectUrl>https://github.com/mherbold/IRSDKSharper</projectUrl>
+    <description>A better C# version of the iRacing SDK</description>
+    <tags>iRacing, IRSDK</tags>
+    <repository type="git" url="https://github.com/mherbold/IRSDKSharper" commit="17d11eca8ebbcf042a9f82849f6bb7ff6ff9151c" />
+    <dependencies>
+      <group targetFramework=".NETFramework4.7.1">
+        <dependency id="YamlDotNet" version="16.0.0" exclude="Build,Analyzers" />
+      </group>
+      <group targetFramework="net6.0-windows7.0">
+        <dependency id="YamlDotNet" version="16.0.0" exclude="Build,Analyzers" />
+      </group>
+      <group targetFramework="net7.0-windows7.0">
+        <dependency id="YamlDotNet" version="16.0.0" exclude="Build,Analyzers" />
+      </group>
+    </dependencies>
+  </metadata>
+</package>
