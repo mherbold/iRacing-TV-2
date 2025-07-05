@@ -46,8 +46,6 @@ public class MainView : MonoBehaviour
 		uiDocument.rootVisualElement.Q<DropdownField>( "main-dropdown" ).SetValueWithoutNotify( "None" );
 		uiDocument.rootVisualElement.Q<DropdownField>( "main-dropdown" ).RegisterValueChangedCallback( OnMainDropdownValueChanged );
 		uiDocument.rootVisualElement.Q<Button>( "close-button" ).clicked += OnCloseButtonClicked;
-
-		StartCoroutine( settings.LoadOverlaySettingsCoroutine() );
 	}
 
 	private void Update()
@@ -103,7 +101,7 @@ public class MainView : MonoBehaviour
 	{
 		if ( windowHandle != IntPtr.Zero )
 		{
-			if ( settings.overlaySettings.data.PositionAndSizeAutomatic )
+			if ( settings.overlaySettingsDataSource.SerializedData.PositionAndSizeAutomatic )
 			{
 				if ( simulator.windowHandle != IntPtr.Zero )
 				{
@@ -135,16 +133,16 @@ public class MainView : MonoBehaviour
 
 							UpdateWindowPositionAndSize();
 
-							settings.overlaySettings.data.PositionAndSizeRect = new( windowX, windowY, windowWidth, windowHeight );
+							settings.overlaySettingsDataSource.SerializedData.PositionAndSizeRect = new( windowX, windowY, windowWidth, windowHeight );
 
-							settings.overlaySettings.Touch();
+							settings.overlaySettingsDataSource.Touch();
 						}
 					}
 				}
 			}
 			else
 			{
-				var rect = settings.overlaySettings.data.PositionAndSizeRect;
+				var rect = settings.overlaySettingsDataSource.SerializedData.PositionAndSizeRect;
 
 				if ( rect.x != windowX || rect.y != windowY || rect.width != windowWidth || rect.height != windowHeight )
 				{
@@ -165,7 +163,7 @@ public class MainView : MonoBehaviour
 
 		yield return new WaitForSplashScreenToFinish();
 
-		Screen.SetResolution( settings.overlaySettings.data.PositionAndSizeRect.x, settings.overlaySettings.data.PositionAndSizeRect.y, false );
+		Screen.SetResolution( settings.overlaySettingsDataSource.SerializedData.PositionAndSizeRect.x, settings.overlaySettingsDataSource.SerializedData.PositionAndSizeRect.y, false );
 
 		yield return new WaitForEndOfFrame();
 		yield return new WaitForEndOfFrame();
@@ -177,10 +175,10 @@ public class MainView : MonoBehaviour
 		WinApi.SetWindowLong( windowHandle, WinApi.GWL_STYLE, WinApi.WS_POPUP | WinApi.WS_VISIBLE );
 		WinApi.SetWindowLong( windowHandle, WinApi.GWL_EXSTYLE, WinApi.WS_EX_LAYERED | WinApi.WS_EX_TOPMOST );
 
-		windowX = settings.overlaySettings.data.PositionAndSizeRect.x;
-		windowY = settings.overlaySettings.data.PositionAndSizeRect.y;
-		windowWidth = settings.overlaySettings.data.PositionAndSizeRect.width;
-		windowHeight = settings.overlaySettings.data.PositionAndSizeRect.height;
+		windowX = settings.overlaySettingsDataSource.SerializedData.PositionAndSizeRect.x;
+		windowY = settings.overlaySettingsDataSource.SerializedData.PositionAndSizeRect.y;
+		windowWidth = settings.overlaySettingsDataSource.SerializedData.PositionAndSizeRect.width;
+		windowHeight = settings.overlaySettingsDataSource.SerializedData.PositionAndSizeRect.height;
 
 		WinApi.SetWindowPos( windowHandle, WinApi.HWND_TOPMOST, windowX, windowY, windowWidth, windowHeight, 0 );
 	}
@@ -235,6 +233,7 @@ public class MainView : MonoBehaviour
 		Debug.Log( "MainView - HideAllEditorPanels" );
 
 		uiDocument.rootVisualElement.Q<VisualElement>( "overlay-settings-panel" ).style.display = DisplayStyle.None;
+		uiDocument.rootVisualElement.Q<VisualElement>( "overlay-layers-panel" ).style.display = DisplayStyle.None;
 		uiDocument.rootVisualElement.Q<VisualElement>( "header-data-panel" ).style.display = DisplayStyle.None;
 		uiDocument.rootVisualElement.Q<VisualElement>( "session-info-panel" ).style.display = DisplayStyle.None;
 		uiDocument.rootVisualElement.Q<VisualElement>( "telemetry-data-panel" ).style.display = DisplayStyle.None;
@@ -251,6 +250,10 @@ public class MainView : MonoBehaviour
 		{
 			case "Overlay Settings":
 				uiDocument.rootVisualElement.Q<VisualElement>( "overlay-settings-panel" ).style.display = DisplayStyle.Flex;
+				break;
+
+			case "Overlay Layers":
+				uiDocument.rootVisualElement.Q<VisualElement>( "overlay-layers-panel" ).style.display = DisplayStyle.Flex;
 				break;
 
 			case "Header Data":

@@ -88,6 +88,7 @@ public class Simulator : MonoBehaviour
 		uiDocument.rootVisualElement.Q<MultiColumnListView>( "session-info-list-view" ).style.display = DisplayStyle.Flex;
 		uiDocument.rootVisualElement.Q<MultiColumnListView>( "telemetry-data-list-view" ).style.display = DisplayStyle.Flex;
 		uiDocument.rootVisualElement.Q<MultiColumnListView>( "event-tracks-list-view" ).style.display = DisplayStyle.Flex;
+		uiDocument.rootVisualElement.Q<MultiColumnListView>( "events-list-view" ).style.display = DisplayStyle.Flex;
 
 		windowHandle = WinApi.FindWindow( null, "iRacing.com Simulator" );
 
@@ -114,6 +115,7 @@ public class Simulator : MonoBehaviour
 		uiDocument.rootVisualElement.Q<MultiColumnListView>( "session-info-list-view" ).style.display = DisplayStyle.None;
 		uiDocument.rootVisualElement.Q<MultiColumnListView>( "telemetry-data-list-view" ).style.display = DisplayStyle.None;
 		uiDocument.rootVisualElement.Q<MultiColumnListView>( "event-tracks-list-view" ).style.display = DisplayStyle.None;
+		uiDocument.rootVisualElement.Q<MultiColumnListView>( "events-list-view" ).style.display = DisplayStyle.None;
 
 		windowHandle = IntPtr.Zero;
 

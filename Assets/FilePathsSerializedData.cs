@@ -3,7 +3,7 @@ using System;
 using System.IO;
 
 [Serializable]
-public class SettingsFilePaths
+public class FilePathsSerializedData
 {
 	public string generalSettingsFilePath = Path.Combine( Settings.generalSettingsFolder, "Default.xml" );
 	public string overlaySettingsFilePath = Path.Combine( Settings.overlaySettingsFolder, "Default.xml" );

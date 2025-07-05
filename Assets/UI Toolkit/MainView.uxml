@@ -9,14 +9,14 @@
             </ui:VisualElement>
             <ui:Button text="X" parse-escape-sequences="true" display-tooltip-when-elided="true" name="close-button" class="irtv2-close-button" />
         </ui:VisualElement>
-        <ui:VisualElement name="overlay-settings-panel" data-source="project://database/Assets/OverlaySettings.asset?fileID=11400000&amp;guid=ed6321c3568e6b949806564194835af2&amp;type=2#OverlaySettings" class="irtv2-panel">
+        <ui:VisualElement name="overlay-settings-panel" data-source="project://database/Assets/OverlaySettings.asset?fileID=11400000&amp;guid=ed6321c3568e6b949806564194835af2&amp;type=2#OverlaySettings" data-source-type="OverlaySettingsDataSource, Assembly-CSharp" class="irtv2-panel" style="display: none;">
             <ui:ScrollView>
                 <ui:GroupBox text="Overlay Settings">
                     <ui:VisualElement class="irtv2-horizontal-layout">
-                        <ui:DropdownField data-source-path="data" style="flex-grow: 1;">
+                        <ui:DropdownField style="flex-grow: 1;">
                             <Bindings>
-                                <ui:DataBinding property="choices" binding-mode="ToTarget" data-source-path="FilePathList" />
                                 <ui:DataBinding property="index" data-source-path="FilePathIndex" binding-mode="TwoWay" />
+                                <ui:DataBinding property="choices" data-source-path="FilePathList" binding-mode="ToTarget" />
                             </Bindings>
                         </ui:DropdownField>
                         <ui:Button text="Refresh" style="width: 85px;" />
@@ -25,20 +25,48 @@
                     </ui:VisualElement>
                 </ui:GroupBox>
                 <ui:GroupBox text="Position and Size">
-                    <ui:Toggle label="Automatic" value="true" text="Enabling this will make iRacing-TV automatically position itself over the simulator window" data-source-path="data.PositionAndSizeAutomatic">
+                    <ui:Toggle label="Automatic" value="true" text="Enabling this will make iRacing-TV automatically position itself over the simulator window" data-source-path="SerializedData">
                         <Bindings>
-                            <ui:DataBinding property="value" binding-mode="TwoWay" />
+                            <ui:DataBinding property="value" data-source-path="PositionAndSizeAutomatic" binding-mode="TwoWay" />
                         </Bindings>
                     </ui:Toggle>
-                    <ui:RectIntField data-source-path="data.PositionAndSizeRect">
+                    <ui:RectIntField data-source-path="SerializedData">
                         <Bindings>
-                            <ui:DataBinding property="value" binding-mode="TwoWay" />
+                            <ui:DataBinding property="value" binding-mode="TwoWay" update-trigger="OnSourceChanged" data-source-path="PositionAndSizeRect" />
                         </Bindings>
                     </ui:RectIntField>
                 </ui:GroupBox>
             </ui:ScrollView>
         </ui:VisualElement>
-        <ui:VisualElement name="header-data-panel" class="irtv2-panel">
+        <ui:VisualElement name="overlay-layers-panel" class="irtv2-panel" style="flex-grow: 1;">
+            <ui:VisualElement class="irtv2-horizontal-layout" style="flex-grow: 1;">
+                <ui:MultiColumnListView name="overlay-layers-list-view" fixed-item-height="32" show-bound-collection-size="false">
+                    <ui:Columns>
+                        <ui:Column name="layer" title="Layer" width="512" sortable="false" optional="false" cell-template="project://database/Assets/UI%20Toolkit/MultiColumnListCellView.uxml?fileID=9197481963319205126&amp;guid=a100f2bcdbbc2db4882846dcb466ce36&amp;type=3#MultiColumnListCellView" />
+                    </ui:Columns>
+                </ui:MultiColumnListView>
+                <ui:ScrollView>
+                    <ui:GroupBox text="Text Settings">
+                        <ui:DropdownField label="Data Source" class="irtv-layer-field" />
+                        <ui:TextField label="Pre-text" class="irtv-layer-field" />
+                        <ui:TextField label="Post-text" class="irtv-layer-field" />
+                    </ui:GroupBox>
+                    <ui:GroupBox text="Font Settings">
+                        <ui:DropdownField label="Font" class="irtv-layer-field" />
+                        <ui:IntegerField label="Size" class="irtv-layer-field" />
+                        <ui:TextField label="Color" class="irtv-layer-field" />
+                        <ui:DropdownField label="Vertical Alignment" choices="Top,Middle,Bottom" class="irtv-layer-field" />
+                        <ui:DropdownField label="Horizontal Alignment" choices="Left,Center,Right" class="irtv-layer-field" />
+                        <ui:DropdownField label="Wrapping" choices="Disabled,Fully automatic,Preformatted text,Preformatted text with automatic wrapping" class="irtv-layer-field" />
+                        <ui:DropdownField label="Overflow" choices="Clipped,Ellipsis" class="irtv-layer-field" />
+                        <ui:IntegerField label="Outline Width" class="irtv-layer-field" />
+                        <ui:TextField label="Outline Color" class="irtv-layer-field" />
+                        <ui:TextField label="Shadow Color" class="irtv-layer-field" />
+                    </ui:GroupBox>
+                </ui:ScrollView>
+            </ui:VisualElement>
+        </ui:VisualElement>
+        <ui:VisualElement name="header-data-panel" fixed-item-height="32" show-alternating-row-backgrounds="ContentOnly" allow-add="false" allow-remove="false" show-bound-collection-size="false" class="irtv2-panel" style="display: none;">
             <ui:MultiColumnListView name="header-data-list-view" fixed-item-height="32" show-alternating-row-backgrounds="ContentOnly" allow-add="false" allow-remove="false" show-bound-collection-size="false">
                 <ui:Columns>
                     <ui:Column name="key" title="Key" width="256" sortable="false" optional="false" cell-template="project://database/Assets/UI%20Toolkit/MultiColumnListCellView.uxml?fileID=9197481963319205126&amp;guid=a100f2bcdbbc2db4882846dcb466ce36&amp;type=3#MultiColumnListCellView" />
@@ -49,7 +77,7 @@
                 <ui:Label tabindex="-1" text="The iRacing simulator is not running" parse-escape-sequences="true" display-tooltip-when-elided="true" />
             </ui:VisualElement>
         </ui:VisualElement>
-        <ui:VisualElement name="session-info-panel" class="irtv2-panel">
+        <ui:VisualElement name="session-info-panel" class="irtv2-panel" style="display: none;">
             <ui:MultiColumnListView name="session-info-list-view" fixed-item-height="32" show-alternating-row-backgrounds="ContentOnly" allow-add="false" allow-remove="false" show-bound-collection-size="false">
                 <ui:Columns>
                     <ui:Column name="key" title="Key" width="480" sortable="false" optional="false" />
@@ -60,7 +88,7 @@
                 <ui:Label tabindex="-1" text="The iRacing simulator is not running" parse-escape-sequences="true" display-tooltip-when-elided="true" />
             </ui:VisualElement>
         </ui:VisualElement>
-        <ui:VisualElement name="telemetry-data-panel" class="irtv2-panel">
+        <ui:VisualElement name="telemetry-data-panel" class="irtv2-panel" style="display: none;">
             <ui:MultiColumnListView name="telemetry-data-list-view" fixed-item-height="32" show-alternating-row-backgrounds="ContentOnly" allow-add="false" allow-remove="false" show-bound-collection-size="false">
                 <ui:Columns>
                     <ui:Column name="key" title="Key" width="280" sortable="false" optional="false" />
@@ -73,7 +101,7 @@
                 <ui:Label tabindex="-1" text="The iRacing simulator is not running" parse-escape-sequences="true" display-tooltip-when-elided="true" />
             </ui:VisualElement>
         </ui:VisualElement>
-        <ui:VisualElement name="event-tracks-panel" class="irtv2-panel">
+        <ui:VisualElement name="event-tracks-panel" class="irtv2-panel" style="display: none;">
             <ui:VisualElement class="irtv2-horizontal-layout">
                 <ui:MultiColumnListView name="event-tracks-list-view" fixed-item-height="32" show-alternating-row-backgrounds="ContentOnly" allow-add="false" allow-remove="false" show-bound-collection-size="false" style="flex-grow: 1;">
                     <ui:Columns>

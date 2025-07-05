@@ -70,6 +70,10 @@
     flex-direction: row;
 }
 
+.irtv-layer-field .unity-label {
+    width: 216px;
+}
+
 .unity-base-field__label {
     color: rgb(255, 255, 255);
     font-size: 20px;
@@ -80,8 +84,9 @@
 }
 
 .unity-base-popup-field__input {
-    padding-bottom: 0;
+    margin-left: 0;
     padding-top: 0;
+    padding-bottom: 0;
 }
 
 .unity-collection-view {
@@ -256,4 +261,8 @@
     border-right-color: rgb(0, 0, 0);
     border-top-color: rgb(0, 0, 0);
     border-bottom-color: rgb(0, 0, 0);
+}
+
+.unity-scroll-view {
+    flex-grow: 1;
 }

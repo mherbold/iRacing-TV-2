@@ -11,15 +11,15 @@ public class Settings : MonoBehaviour
 {
 	public static string settingsFilePathsFilePath = Path.Combine( Program.documentsFolder, "SelectedSettings.xml" );
 
-	public SettingsFilePaths settingsFilePaths;
+	public FilePathsSerializedData filePathsSerializedData;
 
 	public static string generalSettingsFolder = Path.Combine( Program.documentsFolder, "General Settings" );
 	public static string overlaySettingsFolder = Path.Combine( Program.documentsFolder, "Overlay Settings" );
 	public static string overlayLayersFolder = Path.Combine( Program.documentsFolder, "Overlay Layers" );
 
-	public GeneralSettings generalSettings;
-	public OverlaySettings overlaySettings;
-	public OverlayLayers overlayLayers;
+	public GeneralSettingsDataSource generalSettingsDataSource;
+	public OverlaySettingsDataSource overlaySettingsDataSource;
+	public OverlayLayersDataSource overlayLayersDataSource;
 
 	private bool saveTriggered = false;
 
@@ -27,7 +27,11 @@ public class Settings : MonoBehaviour
 	{
 		Debug.Log( "Settings - Awake" );
 
-		settingsFilePaths = new();
+		filePathsSerializedData = new();
+
+		LoadFilePaths();
+
+		overlaySettingsDataSource = new OverlaySettingsDataSource( this );
 	}
 
 	private void OnEnable()
@@ -36,14 +40,12 @@ public class Settings : MonoBehaviour
 
 		var uiDocument = GetComponent<UIDocument>();
 
-		overlaySettings = (OverlaySettings) uiDocument.rootVisualElement.Q<VisualElement>( "overlay-settings-panel" ).dataSource;
-
-		overlaySettings.SetSettings( this );
+		uiDocument.rootVisualElement.Q<VisualElement>( "overlay-settings-panel" ).dataSource = overlaySettingsDataSource;
 	}
 
 	private void Update()
 	{
-		overlaySettings.Update();
+		overlaySettingsDataSource.Update();
 
 		if ( !saveTriggered )
 		{
@@ -51,7 +53,7 @@ public class Settings : MonoBehaviour
 
 		if ( !saveTriggered )
 		{
-			if ( overlaySettings.IsDirty && ( overlaySettings.DirtyTimer <= 0 ) )
+			if ( overlaySettingsDataSource.QueuedForSerialization && ( overlaySettingsDataSource.SerializationTimer <= 0 ) )
 			{
 				Debug.Log( "Triggering save..." );
 
@@ -72,7 +74,7 @@ public class Settings : MonoBehaviour
 
 		try
 		{
-			settingsFilePaths = (SettingsFilePaths) Serializer.Load( settingsFilePathsFilePath, typeof( SettingsFilePaths ) );
+			filePathsSerializedData = (FilePathsSerializedData) Serializer.Load( settingsFilePathsFilePath, typeof( FilePathsSerializedData ) );
 		}
 		catch ( Exception exception )
 		{
@@ -86,7 +88,7 @@ public class Settings : MonoBehaviour
 
 		try
 		{
-			Serializer.Save( settingsFilePathsFilePath, settingsFilePaths );
+			Serializer.Save( settingsFilePathsFilePath, filePathsSerializedData );
 		}
 		catch ( Exception exception )
 		{
@@ -94,20 +96,11 @@ public class Settings : MonoBehaviour
 		}
 	}
 
-	public IEnumerator LoadOverlaySettingsCoroutine()
-	{
-		Debug.Log( "Settings - LoadOverlaySettingsCoroutine" );
-
-		var task = Task.Run( () => overlaySettings.Load( settingsFilePaths.overlaySettingsFilePath ) );
-
-		yield return new WaitUntil( () => task.IsCompleted );
-	}
-
 	public IEnumerator SaveOverlaySettingsCoroutine()
 	{
 		Debug.Log( "Settings - SaveOverlaySettingsCoroutine" );
 
-		var task = Task.Run( () => overlaySettings.Save( settingsFilePaths.overlaySettingsFilePath ) );
+		var task = Task.Run( () => overlaySettingsDataSource.SaveSerializedData( filePathsSerializedData.overlaySettingsFilePath ) );
 
 		yield return new WaitUntil( () => task.IsCompleted );
 

@@ -13,9 +13,9 @@ public static class Serializer
 
 		var xmlSerializer = new XmlSerializer( type );
 
-		var fileStream = new FileStream( filePath, FileMode.Open );
+		using var fileStream = new FileStream( filePath, FileMode.Open );
 
-		var data = xmlSerializer.Deserialize( fileStream ) ?? throw new Exception();
+		var data = xmlSerializer.Deserialize( fileStream );
 
 		fileStream.Close();
 
@@ -30,7 +30,7 @@ public static class Serializer
 
 		var xmlSerializer = new XmlSerializer( data.GetType() );
 
-		var streamWriter = new StreamWriter( filePath );
+		using var streamWriter = new StreamWriter( filePath );
 
 		xmlSerializer.Serialize( streamWriter, data );
 
